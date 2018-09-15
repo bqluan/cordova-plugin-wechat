@@ -280,7 +280,7 @@ public class Wechat extends CordovaPlugin {
 
         try {
             final String appid = params.getString("appid");
-            final String savedAppid = getAppId(cordova.getActivity());
+            final String savedAppid = getSavedAppId(cordova.getActivity());
             if (!savedAppid.equals(appid)) {
                 this.saveAppId(cordova.getActivity(), appid);
             }
@@ -544,15 +544,15 @@ public class Wechat extends CordovaPlugin {
      *
      * @param url
      * @return
-     */    
+     */
     protected  Bitmap compressImage(Bitmap image,Integer maxSize) {
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         image.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         int options = 90;
 
-        while (baos.toByteArray().length / 1024 > maxSize) { 
-            baos.reset(); 
+        while (baos.toByteArray().length / 1024 > maxSize) {
+            baos.reset();
             image.compress(Bitmap.CompressFormat.JPEG, options, baos);
             options -= 10;
         }
@@ -626,7 +626,7 @@ public class Wechat extends CordovaPlugin {
         return null;
     }
 
-    public static String getAppId() {
+    public String getAppId() {
         if (appId == null) {
             appId = preferences.getString(WXAPPID_PROPERTY_KEY, "");
         }
